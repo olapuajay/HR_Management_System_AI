@@ -1,0 +1,24 @@
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import connectDB from "./config/db.js";
+import errorHandler from "./middlewares/errorHandler.js";
+
+const app = express();
+
+connectDB();
+
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+app.use(morgan("dev"));
+
+// Routes
+app.get("/", (req, res) => {
+  res.json({ message: "Hello, from server!" });
+});
+
+app.use(errorHandler);
+
+export default app;
