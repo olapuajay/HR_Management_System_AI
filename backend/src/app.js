@@ -3,7 +3,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
-import errorHandler from "./middlewares/errorHandler.js";
+// import errorHandler from "./middlewares/errorHandler.js";
+
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -15,10 +17,12 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // Routes
+app.use("/api/auth", authRoutes);
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello, from server!" });
 });
 
-app.use(errorHandler);
+// app.use(errorHandler);
 
 export default app;
